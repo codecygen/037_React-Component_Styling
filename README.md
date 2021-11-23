@@ -19,6 +19,8 @@ Not preferable. It duplicates css codes as you give same codes in a css file and
 
 Dynamic CSS Classes
 ===
+
+JSX File
 ```
 <div className={`form-control ${!isValid ? 'invalid' : ''}`}>
     ...
@@ -26,5 +28,14 @@ Dynamic CSS Classes
 </div>
 ```
 
+CSS File
 ```
+.form-control.invalid input {
+  border-color: red;
+  background: #ffd7d7;
+}
+
+.form-control.invalid label {
+  color: red;
+}
 ```
