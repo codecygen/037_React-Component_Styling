@@ -53,6 +53,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../UI/Button/Button';
 
+// Here form-control class removed on the main section of css
+// Also form-control class on other places replaced with &.
 const FormControl = styled.div`
   margin: 0.5rem 0;
 
@@ -109,6 +111,10 @@ const CourseInput = props => {
 
   return (
     <form onSubmit={formSubmitHandler}>
+      {/* Since form-control class already added
+      we have to only add "isValid? && 'invalid
+      Check original CourseInput.js for more info on
+      how the conditional statement set in normal app." */}
       <FormControl className={isValid? && 'invalid'}>
         <label>Course Goal</label>
         <input 
@@ -122,5 +128,78 @@ const CourseInput = props => {
 };
 
 export default CourseInput;
+```
 
+We can also pass props for styled components
+
+```
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Button from '../../UI/Button/Button';
+
+// Here form-control class removed on the main section of css
+// Also form-control class on other places replaced with &.
+const FormControl = styled.div`
+  margin: 0.5rem 0;
+
+  & label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: ${props => (props.invalid ? 'red' : 'black')}
+  }
+
+  & input {
+    display: block;
+    width: 100%;
+    border: 1px solid ${props => (props.invalid ? 'red' : '#ccc')};
+    background: ${props => (props.invalid ? '#ffd7d7' : 'transparent')}
+    font: inherit;
+    line-height: 1.5rem;
+    padding: 0 0.25rem;
+  }
+
+  & input:focus {
+    outline: none;
+    background: #fad0ec;
+    border-color: #8b005d;
+  }
+`;
+
+const CourseInput = props => {
+  const [enteredValue, setEnteredValue] = useState('');
+  const [isValid, setIsValid] = useState(true);
+
+  const goalInputChangeHandler = event => {
+    if (event.target.value.trim().length > 0) {
+      setIsValid(true);
+    }
+    setEnteredValue(event.target.value);
+  };
+
+  const formSubmitHandler = event => {
+    event.preventDefault();
+    if (enteredValue.trim().length === 0) {
+      setIsValid(false);
+      return;
+    }
+    props.onAddGoal(enteredValue);
+  };
+
+  return (
+    <form onSubmit={formSubmitHandler}>
+      {/* Here we pass props */}
+      <FormControl invalid={!isValid}}>
+        <label>Course Goal</label>
+        <input 
+          type="text" 
+          onChange={goalInputChangeHandler} 
+        />
+      <FormControl />
+      <Button type="submit">Add Goal</Button>
+    </form>
+  );
+};
+
+export default CourseInput;
 ```
