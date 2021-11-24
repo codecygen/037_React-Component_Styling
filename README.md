@@ -40,12 +40,63 @@ CSS File
 }
 ```
 
+Importing CSS in a Normal Way
+===
+```
+```
+
+Modular CSS Classes
+===
+In this method, when you import the css module the actual ".button" class will be renamed as a unique name in actual HTML file that is created. For example it renamed .button class as ".Button_button__2lgkF" in my example when I right click and inspect the entire HTML code on browser.
+
+Only thing you have to take into account is, you have to rename the css modules with ".module." section. Instead of naming your css file as "Button.css", you have to name it as "Button.module.css" so when importing, React will know that it has to assign a unique class name for the class that is written in "Button.module.css".
+
+Button.js
+```
+import React from 'react';
+import classes from './Button.module.css';
+
+const Button = props => {
+  return (
+    <button type={props.type} className={classes.button} onClick={props.onClick}>
+      {props.children}
+    </button>
+  );
+};
+
+export default Button;
+```
+Button.modules.css (you have to put .modules. section when renaming otherwise it wont work.)
+
+```
+.button {
+  font: inherit;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #8b005d;
+  color: white;
+  background: #8b005d;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:hover,
+.button:active {
+  background: #ac0e77;
+  border-color: #ac0e77;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
+}
+```
+
 Styled-Components Package
 ===
 This is a package that you can install with
 npm i styled-components
 
-styled-components ensures that the classes we create won't interfere with children component's in future. Imagine if a multiple people work on the same project, this ensures that all classes are unique to their components and not inherited to the other components.
+styled-components ensures that the classes we create won't interfere with other classes in future as the css modules are all imported one by one to form to page so any prior class that has same name in another css file will interfere with the other css file's same class name. Imagine if a multiple people work on the same project, this ensures that all classes are unique to their components and not inherited to the other components.
 
 Example CourseInput.js
 ```
@@ -130,6 +181,8 @@ const CourseInput = props => {
 export default CourseInput;
 ```
 
+Styled-Components Package with Props
+===
 We can also pass props for styled components
 
 ```
@@ -204,6 +257,8 @@ const CourseInput = props => {
 export default CourseInput;
 ```
 
+Styled-Components Package with Responsive Design
+===
 styled-components can also be set up for responsive designs
 This is the content of Button.js
 
@@ -256,3 +311,4 @@ const Button = styled.button`
 
 export default Button;
 ```
+
