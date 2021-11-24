@@ -46,6 +46,7 @@ Importing CSS in a Normal Way
 This method is pretty straightforward but downside is, the classnames are included in the entire HTML. So if someone is working on another component, he may want to edit that component's classnames in a different way but since, lets say he gives the name ".button" to his class in his own css file there will be a classname ".button" duplication which will mess up the things.
 
 Button.js
+
 ```
 import React from 'react';
 import './Button.css';
@@ -62,6 +63,7 @@ export default Button;
 ```
 
 Button.css
+
 ```
 .button {
   width: 100%;
