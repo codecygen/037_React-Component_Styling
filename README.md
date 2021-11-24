@@ -42,7 +42,54 @@ CSS File
 
 Importing CSS in a Normal Way
 ===
+
+This method is pretty straightforward but downside is, the classnames are included in the entire HTML. So if someone is working on another component, he may want to edit that component's classnames in a different way but since, lets say he gives the name ".button" to his class in his own css file there will be a classname ".button" duplication which will mess up the things.
+
+Button.js
 ```
+import React from 'react';
+import './Button.css';
+
+const Button = props => {
+  return (
+    <button type={props.type} className="button" onClick={props.onClick}>
+      {props.children}
+    </button>
+  );
+};
+
+export default Button;
+```
+
+Button.css
+```
+.button {
+  width: 100%;
+  font: inherit;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #8b005d;
+  color: white;
+  background: #8b005d;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:hover,
+.button:active {
+  background: #ac0e77;
+  border-color: #ac0e77;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
+}
+
+@media(min-width: 768px) {
+  .button {
+    width: auto;
+  }
+}
 ```
 
 Modular CSS Classes
@@ -70,6 +117,7 @@ Button.modules.css (you have to put .modules. section when renaming otherwise it
 
 ```
 .button {
+  width: 100%;
   font: inherit;
   padding: 0.5rem 1.5rem;
   border: 1px solid #8b005d;
@@ -89,6 +137,33 @@ Button.modules.css (you have to put .modules. section when renaming otherwise it
   border-color: #ac0e77;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
 }
+
+@media(min-width: 768px) {
+  .button {
+    width: auto;
+  }
+}
+```
+
+As you have seen, the default class calling is given down below,
+
+```
+<button className={classes.button}>
+```
+
+In this method, don't forget that if the class name is with dash "form-control", you have to use something like this to call it.
+
+```
+<div className={classes['form-control']}>
+```
+
+Alternatively for a conditional css rendering, this has to be used.
+
+```
+{/* Instead of this, */}
+{/* `form-control ${!isValid ? 'invalid' : ''}` */}
+{/* Use this. */}
+<div className={`${classes['form-control']} ${!isValid && classes.invalid}`}>
 ```
 
 Styled-Components Package
