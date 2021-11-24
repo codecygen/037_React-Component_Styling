@@ -161,8 +161,8 @@ Alternatively for a conditional css rendering, this has to be used.
 
 ```
 {/* Instead of this, */}
-{/* `form-control ${!isValid ? 'invalid' : ''}` */}
-{/* Use this. */}
+{/* <div className=`form-control ${!isValid ? 'invalid' : ''}` */}
+{/* Use this, */}
 <div className={`${classes['form-control']} ${!isValid && classes.invalid}`}>
 ```
 
