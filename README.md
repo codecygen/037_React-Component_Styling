@@ -115,7 +115,7 @@ const Button = props => {
 
 export default Button;
 ```
-Button.module.css (you have to put .modules. section when renaming otherwise it wont work.)
+Button.module.css (you have to put .module. section when renaming otherwise it wont work.)
 
 ```
 .button {
